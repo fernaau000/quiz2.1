@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dots Classifier (Client-side)</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- TensorFlow.js and Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.12.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Dots Classifier (Client-side)</h1>
+    </header>
+    <main>
+      <section class="controls">
+        <h2>Generator & Hyperparameters</h2>
+        <label>Overlap Mode:
+          <select id="overlap">
+            <option value="allow">Allow Overlap</option>
+            <option value="prevent">Prevent Overlap</option>
+          </select>
+        </label>
+
+        <label>Dot Count (min — max):
+          <input id="dotMin" type="number" min="1" max="9" value="1" />
+          —
+          <input id="dotMax" type="number" min="1" max="9" value="6" />
+        </label>
+
+        <label>Batch Size:
+          <input id="batchSize" type="number" min="1" value="64" />
+        </label>
+
+        <label>Epochs (1–8):
+          <input id="epochs" type="number" min="1" max="8" value="8" />
+        </label>
+
+        <label>Image Size (px square):
+          <input id="imageSize" type="number" min="8" value="32" />
+        </label>
+
+        <label>Dot Radius (min — max px):
+          <input id="radiusMin" type="number" min="1" value="2" />
+          —
+          <input id="radiusMax" type="number" min="1" value="5" />
+        </label>
+
+        <label>Seed:
+          <input id="seed" type="number" value="42" />
+        </label>
+
+        <label>Steps / Epoch:
+          <input id="stepsPerEpoch" type="number" min="1" value="100" />
+        </label>
+
+        <label>Val Steps / Epoch:
+          <input id="valSteps" type="number" min="0" value="20" />
+        </label>
+
+        <label>Update Every (batches):
+          <input id="updateEvery" type="number" min="1" value="1" />
+        </label>
+
+        <div class="controls-row">
+          <button id="startBtn">Start Training</button>
+          <button id="pauseBtn">Pause</button>
+          <button id="resetBtn">Reset</button>
+        </div>
+
+        <div class="status" id="status">Ready</div>
+      </section>
+
+      <section class="preview">
+        <div id="batchStats" style="margin-bottom:8px;font-size:15px;color:#444">
+          Backend: <span id="backend">webgl</span><br>
+          Progress: <span id="progressLabel">-</span><br>
+          Loss: <span id="batchLoss">-</span> | Acc: <span id="batchAcc">-</span>
+        </div>
+        <h2>Preview</h2>
+        <canvas id="previewCanvas" width="128" height="128"></canvas>
+        <div id="previewInfo">Preview shows first image of the latest batch.</div>
+      </section>
+
+      <section class="chart">
+        <h2>Batch Accuracies</h2>
+        <canvas id="accChart" height="200"></canvas>
+      </section>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>
